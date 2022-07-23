@@ -31,17 +31,19 @@ service.interceptors.request.use((req)=>{
 service.interceptors.response.use((res)=>{
     console.log('响应')
     const {code,data,msg} = res.data
-    // if(code == 200){
-    //     return data; 
-    //     // 成功
-    // }else if(code == 40001){
-    //     setTimeout(()=>{
-    //         router.push('/login')
-    //     },1500)
-    //     return Promise.reject(TOKEN_INVALID)
-    // }else {
-    //     return Promise.reject(msg || NETWORK_ERROR)
-    // }
+    if(code == 200){
+        return data; 
+        // 成功
+    }else if(code == 50001){
+        setTimeout(()=>{
+            router.push('/login')
+        },1500)
+        // 弹窗
+        return Promise.reject(TOKEN_INVALID)
+    }else {
+        // 弹窗
+        return Promise.reject(msg || NETWORK_ERROR)
+    }
     return res.data.data    
 })
 
@@ -53,7 +55,7 @@ service.interceptors.response.use((res)=>{
  * 
  * */ 
 function request(options){
-    console.log('调用')
+    console.log('调用',options)
     options.method = options.method || 'get'
     if(!options.method.toLowerCase() === 'get'){
         options.params = options.data;
