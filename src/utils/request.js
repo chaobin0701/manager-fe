@@ -48,6 +48,7 @@ service.interceptors.response.use((res)=>{
 
 
 /**
+ * 请求核心函数
  * @param {*} options
  * 
  * */ 
@@ -57,7 +58,9 @@ function request(options){
     if(!options.method.toLowerCase() === 'get'){
         options.params = options.data;
     }
-
+    if(typeof options.mock != 'undefined'){
+        config.mock = options.mock
+    }
     if(conifg.env === 'prod'){
         service.defaults.baseURL = conifg.baseApi
     } else {

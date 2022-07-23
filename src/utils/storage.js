@@ -9,7 +9,6 @@ export default {
     },
     setItem(key,val){
         let storage = this.getStorege()
-        console.log(storage)
         storage[key] = val
         window.localStorage.setItem(conifg.namespace,JSON.stringify(storage))
     },
